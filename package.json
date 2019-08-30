@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel src --out-dir lib && node lib/index.js",
+    "start": "./node_modules/.bin/babel src --out-dir lib && node lib/api/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Steve Anderson",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "express": "^4.17.1",
     "helmet": "^3.20.1",
     "zfs": "github:joyent/node-zfs"
   },
