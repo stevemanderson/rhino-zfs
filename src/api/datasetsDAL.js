@@ -9,6 +9,25 @@ function getDatasets() {
   });
 }
 
+function createDataset(name) {
+  return new Promise((resolve) => {
+    zfs.create(name, (err) => {
+      console.log(err.stack);
+      resolve();
+    });
+  });
+}
+
+function destroyDataset(name) {
+  return new Promise((resolve) => {
+    zfs.destroy(name, (err) => {
+      resolve();
+    });
+  });
+}
+
 module.exports = {
   getDatasets,
+  createDataset,
+  destroyDataset,
 };

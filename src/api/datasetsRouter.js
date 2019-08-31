@@ -13,4 +13,15 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/', (req, res) => {
+  dal.createDataset(req.body.name).then(() => {
+    res.statusCode = 201;
+    res.send();
+  }).catch((error) => {
+    console.log(error);
+    res.statusCode = 500;
+    res.send([]);
+  });
+});
+
 module.exports = router;
