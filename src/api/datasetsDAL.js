@@ -1,5 +1,6 @@
 const { zfs } = require('zfs');
 const Dataset = require('./dataset');
+const createDS = require('./createDataset');
 
 function getDatasets() {
   return new Promise((resolve) => {
@@ -11,10 +12,8 @@ function getDatasets() {
 
 function createDataset(name) {
   return new Promise((resolve) => {
-    zfs.create(name, (err) => {
-      console.log(err.stack);
-      resolve();
-    });
+    createDS(name);
+    resolve();
   });
 }
 

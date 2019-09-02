@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log(`Sent ${req.body.name}`);
   dal.createDataset(req.body.name).then(() => {
     res.statusCode = 201;
     res.send();
