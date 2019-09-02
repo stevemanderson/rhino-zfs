@@ -1,6 +1,7 @@
 const { zfs } = require('zfs');
 const Dataset = require('./dataset');
 const createDS = require('./createDataset');
+const destroyDS = require('./destroyDataset');
 
 function getDatasets() {
   return new Promise((resolve) => {
@@ -19,9 +20,8 @@ function createDataset(name) {
 
 function destroyDataset(name) {
   return new Promise((resolve) => {
-    zfs.destroy(name, (err) => {
-      resolve();
-    });
+    destroyDS(name);
+    resolve();
   });
 }
 

@@ -1,5 +1,6 @@
 const amqp = require('amqplib/callback_api');
 const createDataset = require('./createDataset');
+const destroyDataset = require('./destroyDataset');
 
 amqp.connect('amqp://localhost', (err, conn) => {
   if (err) {
@@ -25,13 +26,19 @@ amqp.connect('amqp://localhost', (err, conn) => {
       const command = JSON.parse(msg.content.toString());
       console.log(" [x] Received %s", msg.content.toString());
 
-      switch(command.type) {
+      switch (command.type) {
         case "createDataset":
-          createDataset(command);
+          createDataset(command).then(() => {
+            console.log(` [x] Dataset ${command.params.name} created`);
+            channel.ack(msg);
+          });
           break;
+        case "destroyDataset":
+          destroyDataset(command).then(() => {
+            console.log(` [x] Dataset ${command.params.name} destroyed`);
+            channel.ack(msg);
+          });
       }
-
-      channel.ack(msg);
     }, {
       noAck: false
     });

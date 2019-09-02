@@ -4,8 +4,8 @@ const {
 
 module.exports = (command) => {
   return new Promise((resolve) => {
-    console.log(` [x] Creating dataset ${command.params.name}`)
-    zfs.create(command.params.name, (err) => {
+    console.log(` [x] Destroying dataset ${command.params.name}`)
+    zfs.destroy(command.params.name, (err) => {
       if (err) {
         throw err;
       }

@@ -25,4 +25,17 @@ router.post('/', (req, res) => {
   });
 });
 
+router.delete('/', (req, res) => {
+  console.log(`Sent ${req.body.name}`);
+  dal.destroyDataset(req.body.name).then(() => {
+    res.statusCode = 200;
+    res.send();
+  }).catch((error) => {
+    console.log(error);
+    res.statusCode = 500;
+    res.send([]);
+  });
+});
+
+
 module.exports = router;
