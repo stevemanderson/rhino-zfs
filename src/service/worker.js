@@ -1,6 +1,7 @@
 const amqp = require('amqplib/callback_api');
 const createDataset = require('./createDataset');
 const destroyDataset = require('./destroyDataset');
+const datasetExists = require('./datasetExists');
 
 amqp.connect('amqp://localhost', (err, conn) => {
   if (err) {
@@ -20,7 +21,7 @@ amqp.connect('amqp://localhost', (err, conn) => {
 
     channel.prefetch(1);
 
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C.");
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C.", queue);
 
     channel.consume(queue, (msg) => {
       const command = JSON.parse(msg.content.toString());
@@ -28,16 +29,32 @@ amqp.connect('amqp://localhost', (err, conn) => {
 
       switch (command.type) {
         case "createDataset":
-          createDataset(command).then(() => {
-            console.log(` [x] Dataset ${command.params.name} created`);
-            channel.ack(msg);
+          datasetExists(command).then((exists) => {
+            if (!exists) {
+              createDataset(command).then(() => {
+                console.log(` [x] Dataset ${command.params.name} created`);
+                channel.ack(msg);
+              });
+            }
+            else {
+              console.log(` [x] Dataset ${command.params.name} already exists`);
+              channel.ack(msg);
+            }
           });
           break;
         case "destroyDataset":
-          destroyDataset(command).then(() => {
-            console.log(` [x] Dataset ${command.params.name} destroyed`);
-            channel.ack(msg);
+          datasetExists(command).then((exists) => {
+            if (exists) {
+              destroyDataset(command).then(() => {
+                console.log(` [x] Dataset ${command.params.name} destroyed`);
+                channel.ack(msg);
+              });
+            } else {
+              console.log(` [x] Dataset ${command.params.name} does not exist`);
+              channel.ack(msg);
+            }
           });
+          break;
       }
     }, {
       noAck: false

@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "e7537059-f269-467e-a482-78f6633d59f9",
+		"name": "rhino-zfs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "datasets",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/datasets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"datasets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tank/testing3\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/datasets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"datasets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tank/testing1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/datasets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"datasets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "snapshots",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/snapshots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"snapshots"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
