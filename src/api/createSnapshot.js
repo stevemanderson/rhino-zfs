@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 
-module.exports = (datasetName) => {
+module.exports = (snapshotName) => {
   amqp.connect('amqp://localhost', (err, conn) => {
     if (err) {
       throw err;
@@ -13,9 +13,9 @@ module.exports = (datasetName) => {
 
       const queue = 'rhino_zfs_commands';
       const msg = {
-        type: 'destroyDataset',
+        type: 'createSnapshot',
         params: {
-          name: datasetName,
+          name: snapshotName,
         },
       };
 

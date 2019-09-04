@@ -15,7 +15,7 @@ module.exports = (datasetName) => {
       const msg = {
         type: 'createDataset',
         params: {
-          name: datasetName
+          name: datasetName,
         },
       };
 
@@ -24,11 +24,11 @@ module.exports = (datasetName) => {
       });
 
       channel.sendToQueue(queue, Buffer.from(JSON.stringify(msg)), {
-        persistent: true
+        persistent: true,
       });
 
       setTimeout(() => {
-         conn.close();
+        conn.close();
       }, 500);
     });
   });

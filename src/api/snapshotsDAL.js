@@ -1,5 +1,7 @@
 const { zfs } = require('../../node_modules/zfs');
 const Snapshot = require('./snapshot');
+const createSS = require('./createSnapshot');
+const destroySS = require('./destroySnapshot');
 
 function getSnapshots() {
   return new Promise((resolve) => {
@@ -9,6 +11,22 @@ function getSnapshots() {
   });
 }
 
+function createSnapshot(name) {
+  return new Promise((resolve) => {
+    createSS(name);
+    resolve();
+  });
+}
+
+function destroySnapshot(name) {
+  return new Promise((resolve) => {
+    destroySS(name);
+    resolve();
+  });
+}
+
 module.exports = {
   getSnapshots,
+  createSnapshot,
+  destroySnapshot,
 };

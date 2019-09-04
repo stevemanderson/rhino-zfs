@@ -13,7 +13,7 @@ module.exports = (datasetName) => {
 
       const queue = 'rhino_zfs_commands';
       const msg = {
-        type: 'destroyDataset',
+        type: 'destroySnapshot',
         params: {
           name: datasetName,
         },
