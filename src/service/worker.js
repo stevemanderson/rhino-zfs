@@ -6,7 +6,6 @@ const createSnapshot = require('./createSnapshot');
 const destroySnapshot = require('./destroySnapshot');
 const snapshotExists = require('./snapshotExists');
 
-
 amqp.connect('amqp://localhost', (err, conn) => {
   if (err) {
     throw err;
@@ -85,7 +84,7 @@ amqp.connect('amqp://localhost', (err, conn) => {
           });
           break;
         default:
-          break;
+          throw new Error(`${command.type} is not a command.`);
       }
     }, {
       noAck: false,
