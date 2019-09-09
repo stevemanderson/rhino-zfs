@@ -4,7 +4,6 @@ import {
   validationResult,
 } from 'express-validator';
 import dal from './snapshotsDAL';
-import { exists } from './snapshotValidators';
 
 const router = express.Router();
 
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', [
-  check('name').custom(exists),
   check('name').matches(/@/).withMessage('snapshot name has incorrect syntax'),
 ], (req, res) => {
   const err = validationResult(req);
@@ -41,7 +39,17 @@ router.post('/', [
   });
 });
 
-router.delete('/', (req, res) => {
+router.delete('/', [
+  check('name').matches(/@/).withMessage('snapshot name has incorrect syntax'),
+], (req, res) => {
+  const err = validationResult(req);
+
+  if (!err.isEmpty()) {
+    res.statusCode = 400;
+    res.send(err.mapped());
+    return;
+  }
+
   console.log(`Sent ${req.body.name}`);
   dal.destroySnapshot(req.body.name).then(() => {
     res.statusCode = 200;

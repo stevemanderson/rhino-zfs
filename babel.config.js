@@ -12,6 +12,7 @@ const presets = [
       corejs: '2.0.0',
     },
   ],
+  ['@babel/preset-react'],
 ];
 
 module.exports = { presets };
