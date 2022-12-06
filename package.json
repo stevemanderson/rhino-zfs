@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "helmet": "^3.20.1",
     "zfs": "github:joyent/node-zfs"
   },
